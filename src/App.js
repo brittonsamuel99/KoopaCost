@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {
   Button, Typography, Container, Box, Card, CardContent,
   CardActions, Divider, Grid, Paper, ThemeProvider, createTheme,
-  List, ListItem, IconButton
+  List, ListItem, IconButton, Link
 } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AddIcon from '@mui/icons-material/Add';
@@ -152,7 +152,7 @@ function App() {
         <Card elevation={3} sx={{ mb: 4 }}>
           <CardContent>
             <Typography variant="h6" color="text.secondary" gutterBottom>
-              Build Your Package
+              Select Your Nintendo Switch 2 Model:
             </Typography>
 
             <Box sx={{ mb: 3 }}>
@@ -268,34 +268,15 @@ function App() {
               </Grid>
             </Grid>
           </Paper>
-
-          <CardActions sx={{ justifyContent: 'center', pb: 3 }}>
-            <Button
-              variant="contained"
-              color="primary"
-              size="large"
-              startIcon={<ShoppingCartIcon />}
-              sx={{
-                px: 4,
-                py: 1,
-                borderRadius: 2,
-                boxShadow: 2,
-                '&:hover': {
-                  transform: 'translateY(-2px)',
-                  boxShadow: 3,
-                },
-                transition: 'all 0.2s ease-in-out'
-              }}
-            >
-              Get Detailed Estimate
-            </Button>
-          </CardActions>
         </Card>
 
         <Typography variant="body2" color="text.secondary" align="center">
           Prices shown are estimates and may vary by region and retailer
         </Typography>
       </Container>
+      <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 2 }}>
+        Vibecoded with ❤️ by <Link href="https://greatbritton.online" target="_blank" rel="noopener" color="primary">Samuel Britton</Link>
+      </Typography>
     </ThemeProvider>
   );
 }
