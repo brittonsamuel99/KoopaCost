@@ -36,27 +36,37 @@ const theme = createTheme({
 
 function App() {
   // Change to store multiple games
-  const [games, setGames] = useState([{ id: 0, price: 0, name: "None" }]);
-  const [accessories, setAccessories] = useState([{ id: 0, price: 0, name: "None" }]);
+  const [games, setGames] = useState([{ id: 0, price: 0, name: "None", selection: "none" }]);
+  const [accessories, setAccessories] = useState([{ id: 0, price: 0, name: "None", selection: "none" }]);
   const [switchPrice, setSwitchPrice] = useState(449.99);
+  const [switchSelection, setSwitchSelection] = useState("switch-standard");
 
   // Function to handle game selection change
   const handleGameChange = (index, event) => {
-    const selectedValue = parseFloat(event.target.value);
-    const selectedName = event.target.options[event.target.selectedIndex].text;
+    const selectedId = event.target.value;
+
+    // Map ID to price and name
+    const gameInfo = {
+      "none": { price: 0, name: "None" },
+      "mario-kart": { price: 79.99, name: "Mario Kart World" },
+      "donkey-kong": { price: 69.99, name: "Donkey Kong Bananza" },
+      "other-game-59": { price: 59.99, name: "Other Game - $59.99" },
+      "other-game-69": { price: 69.99, name: "Other Game - $69.99" }
+    };
 
     const updatedGames = [...games];
     updatedGames[index] = {
       id: Date.now() + index,
-      price: selectedValue,
-      name: selectedName
+      price: gameInfo[selectedId].price,
+      name: gameInfo[selectedId].name,
+      selection: selectedId // Store the selection ID
     };
     setGames(updatedGames);
   };
 
   // Function to add another game
   const addGame = () => {
-    setGames([...games, { id: Date.now(), price: 0, name: "None" }]);
+    setGames([...games, { id: Date.now(), price: 0, name: "None", selection: "none" }]);
   };
 
   // Function to remove a game
@@ -69,20 +79,35 @@ function App() {
   };
 
   const handleAccessoriesChange = (index, event) => {
-    const selectedValue = parseFloat(event.target.value);
-    const selectedName = event.target.options[event.target.selectedIndex].text;
+    const selectedId = event.target.value;
+
+    // Map ID to price and name
+    const accessoryInfo = {
+      "none": { price: 0, name: "None" },
+      "pro-controller": { price: 79.99, name: "Nintendo Switch 2 Pro Controller" },
+      "joy-con": { price: 89.99, name: "Left and Right Joy-Con 2 Controllers" },
+      "charging-grip": { price: 34.99, name: "Joy-Con 2 Charging Grip" },
+      "strap": { price: 12.99, name: "Joy-Con 2 Strap" },
+      "wheel": { price: 19.99, name: "Joy-Con 2 Wheel (set of two)" },
+      "camera": { price: 49.99, name: "Nintendo Switch 2 Camera" },
+      "dock": { price: 109.99, name: "Nintendo Switch 2 Dock Set" },
+      "case": { price: 34.99, name: "Nintendo Switch 2 Carrying Case & Screen Protector" },
+      "all-in-case": { price: 79.99, name: "Nintendo Switch 2 All-In-One Carrying Case" },
+      "adapter": { price: 29.99, name: "Nintendo Switch 2 AC Adapter" }
+    };
 
     const updatedAccessories = [...accessories];
     updatedAccessories[index] = {
       id: Date.now() + index,
-      price: selectedValue,
-      name: selectedName
+      price: accessoryInfo[selectedId].price,
+      name: accessoryInfo[selectedId].name,
+      selection: selectedId // Store the selection ID
     };
     setAccessories(updatedAccessories);
   };
 
   const addAccessories = () => {
-    setAccessories([...accessories, { id: Date.now(), price: 0, name: "None" }]);
+    setAccessories([...accessories, { id: Date.now(), price: 0, name: "None", selection: "none" }]);
   };
 
   // Function to remove accessories
@@ -96,7 +121,15 @@ function App() {
 
   // Function to handle Switch model selection change
   const handleSwitchChange = (event) => {
-    setSwitchPrice(parseFloat(event.target.value));
+    const selectedId = event.target.value;
+    setSwitchSelection(selectedId); // Update the selection state
+
+    const switchInfo = {
+      "switch-standard": 449.99,
+      "switch-bundle": 499.99
+    };
+
+    setSwitchPrice(switchInfo[selectedId]);
   };
 
   // Calculate total price including accessories
@@ -123,7 +156,7 @@ function App() {
             </Typography>
 
             <Box sx={{ mb: 3 }}>
-              <SwitchItem onChange={handleSwitchChange} />
+              <SwitchItem onChange={handleSwitchChange} value={switchSelection} />
             </Box>
 
             <Divider sx={{ my: 2 }} />
@@ -151,7 +184,10 @@ function App() {
                   }
                 >
                   <Box sx={{ width: '100%', pr: 5 }}>
-                    <GameItem onChange={(e) => handleGameChange(index, e)} />
+                    <GameItem
+                      onChange={(e) => handleGameChange(index, e)}
+                      value={game.selection}
+                    />
                   </Box>
                 </ListItem>
               ))}
@@ -193,7 +229,10 @@ function App() {
                   }
                 >
                   <Box sx={{ width: '100%', pr: 5 }}>
-                    <AccessoriesItem onChange={(e) => handleAccessoriesChange(index, e)} />
+                    <AccessoriesItem
+                      onChange={(e) => handleAccessoriesChange(index, e)}
+                      value={accessory.selection}
+                    />
                   </Box>
                 </ListItem>
               ))}

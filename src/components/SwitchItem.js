@@ -1,15 +1,23 @@
-import React from "react";
+import React from 'react';
+import { FormControl, InputLabel, Select, MenuItem, FormHelperText } from '@mui/material';
 
-const SwitchItem = () => {
+const SwitchItem = ({ onChange, value }) => {
   return (
-    <label>
-      Pick a Switch 2 model:
-      <select name="switch2-model" id="switch2-model">
-        <option value={449.99} id="standard">Nintendo Switch 2 - $449.99</option>
-        <option value={499.99} id="withMarioKart">Nintendo Switch 2 + Mario Kart World - $499.99</option>
-      </select>
-    </label>
-  )
-}
+    <FormControl fullWidth variant="outlined">
+      <InputLabel id="switch-model-label">Switch 2 Model</InputLabel>
+      <Select
+        labelId="switch-model-label"
+        id="switch-model"
+        label="Switch 2 Model"
+        value={value}
+        onChange={onChange}
+      >
+        <MenuItem value="switch-standard">Nintendo Switch 2 - $449.99</MenuItem>
+        <MenuItem value="switch-bundle">Nintendo Switch 2 + Mario Kart World - $499.99</MenuItem>
+      </Select>
+      <FormHelperText>Select your Nintendo Switch 2 model</FormHelperText>
+    </FormControl>
+  );
+};
 
 export default SwitchItem;

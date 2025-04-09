@@ -1,17 +1,25 @@
 import React from 'react';
+import { FormControl, InputLabel, Select, MenuItem, FormHelperText } from '@mui/material';
 
-const GameItem = () => {
+const GameItem = ({ onChange, value }) => {
   return (
-    <label>
-      Game:
-      <select name="game">
-        <option value="0" id="none">Pick a game - $0</option>
-        <option value="79.99" id="marioKart">Mario Kart World - $79.99</option>
-        <option value="69.99" id="donkeykong">Donkey Kong Bananza - $69.99</option>
-        <option value="59.99" id="other59.99">Other Game - $59.99</option>
-        <option value="69.99" id="other69.99">Other Game - $69.99</option>
-      </select>
-    </label>
+    <FormControl fullWidth variant="outlined" sx={{ mb: 1 }}>
+      <InputLabel id="game-select-label">Game</InputLabel>
+      <Select
+        labelId="game-select-label"
+        id="game-select"
+        label="Game"
+        value={value}
+        onChange={onChange}
+      >
+        <MenuItem value="none">Pick a game - $0</MenuItem>
+        <MenuItem value="mario-kart">Mario Kart World - $79.99</MenuItem>
+        <MenuItem value="donkey-kong">Donkey Kong Bananza - $69.99</MenuItem>
+        <MenuItem value="other-game-59">Other Game - $59.99</MenuItem>
+        <MenuItem value="other-game-69">Other Game - $69.99</MenuItem>
+      </Select>
+      <FormHelperText>Select your game</FormHelperText>
+    </FormControl>
   );
 };
 
