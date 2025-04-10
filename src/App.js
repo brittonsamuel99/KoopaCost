@@ -141,12 +141,20 @@ function App() {
     <ThemeProvider theme={theme}>
       <Container maxWidth="sm" sx={{ py: 4 }}>
         <Typography
+          variant="h2"
+          gutterBottom
+          align="center"
+          sx={{ mb: 3, color: 'primary.main' }}
+        >
+          Koopa Cost
+        </Typography>
+        <Typography
           variant="h3"
           gutterBottom
           align="center"
           sx={{ mb: 3, color: 'primary.main' }}
         >
-          Nintendo Switch 2 Price Estimator
+          A Nintendo Switch 2 Price Estimator
         </Typography>
 
         <Card elevation={3} sx={{ mb: 4 }}>
